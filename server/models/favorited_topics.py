@@ -1,0 +1,13 @@
+from config import db
+
+class FavoritedTopics(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, unique=False, nullable=False)
+    topic_id = db.Column(db.Integer, unique=False, nullable=False)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "userId": self.user_id,
+            "topicId": self.topic_id,
+        }
