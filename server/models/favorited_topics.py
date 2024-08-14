@@ -1,6 +1,6 @@
 from config import db
 
-class FavoritedTopics(db.Model):
+class FavoritedTopic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, unique=False, nullable=False)
     topic_id = db.Column(db.Integer, unique=False, nullable=False)
