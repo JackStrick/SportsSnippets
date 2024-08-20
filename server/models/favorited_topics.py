@@ -11,3 +11,6 @@ class FavoritedTopic(db.Model):
             "userId": self.user_id,
             "topicId": self.topic_id,
         }
+    
+    def get_topic_id(self):
+        return self.topic_id
