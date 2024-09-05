@@ -38,7 +38,7 @@ def summarize(headlines, stories):
     summaries = []
     for headline, story in zip(headlines, stories):
         completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             messages=[
                 {"role": "system", "content": "You are a sports writer that summarizes sports news."},
                 {"role": "user", "content": f"This is the news headline: {headline}. And this is the article content: {story}. Create a new original article that is a summary of this provided story. Make sure to remove any html. Summaries should be roughly one paragraph in length at minimum and no more than 1500 characters at max"}
@@ -62,6 +62,7 @@ with app.app_context():
         #   Fetch stories from headlines
         #   Generate summary list for each topic
         #   Append summaries to db for topic
+        
         for id in favorite_ids:
             topic = db.session.get(Topic, id)
             news = fetch_headlines(topic)
@@ -76,7 +77,8 @@ with app.app_context():
                     web_links.append(article['links']['web']['href'])
                     api_links.append(article['links']['api']['news']['href'])
                     stories.append(story_json['headlines'][0]['story'])
-                    
+
+            print("Creating summaries for ", topic.name)        
             summary_list = summarize(headlines, stories)
 
             if summary_list:
